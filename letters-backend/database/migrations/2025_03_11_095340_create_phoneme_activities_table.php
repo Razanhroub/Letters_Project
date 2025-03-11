@@ -1,8 +1,9 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;
 
 class CreatePhonemeActivitiesTable extends Migration
 {
@@ -22,6 +23,7 @@ class CreatePhonemeActivitiesTable extends Migration
             $table->string('examples', 255)->charset('utf8mb4')->collation('utf8mb4_unicode_ci')->comment('أمثلة');
             $table->timestamp('created_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->boolean('is_deleted')->default(0)->comment('0 = active, 1 = deleted');  // Removed the 'after' clause
 
             // Foreign key constraint
             $table->foreign('phoneme_id')->references('id')->on('phonemes')->onDelete('cascade');
