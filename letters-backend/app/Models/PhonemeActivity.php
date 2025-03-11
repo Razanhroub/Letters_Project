@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PhonemeActivity extends Model
 {
@@ -16,13 +14,16 @@ class PhonemeActivity extends Model
         'is_active',
         'grammatical_effect',
         'examples',
-        // 'is_deleted',  // Allow 'is_deleted' to be mass-assigned
-        
+        'deleted_at', // Custom soft delete field
     ];
 
-    // protected $casts = [
-    //     'is_deleted' => 'boolean',  // Make sure 'is_deleted' is cast to a boolean
-    // ];
+    // Ensure soft-deleted records are excluded by default
+    protected static function booted()
+    {
+        static::addGlobalScope('notDeleted', function ($query) {
+            $query->where('deleted_at', 0);
+        });
+    }
 
     public function phoneme()
     {
