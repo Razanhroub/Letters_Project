@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PhonemeActivityForm  from './PhonemeActivityForm ';
 
 const MainComponent = () => {
     const [activities, setActivities] = useState([]);
@@ -12,8 +11,9 @@ const MainComponent = () => {
                 console.log('Fetching Activities...');
                 const response = await axios.get('http://127.0.0.1:8000/api/phoneme-activities');
                 console.log('Activities Fetched:', response.data);
-                setActivities(response.data);
-                console.log('Activities Set:', response.data);
+                
+                // Ensure activities is always an array
+                setActivities(Array.isArray(response.data) ? response.data : [response.data]);
             } catch (error) {
                 console.error('Error fetching activities:', error);
             }
@@ -22,22 +22,36 @@ const MainComponent = () => {
         fetchActivities();
     }, []);
 
+    useEffect(() => {
+        console.log('Activities State Updated:', activities); // Log after state is updated
+    }, [activities]);
+
     const handleNext = () => {
-        setCurrentIndex((prevIndex) => {
-            const newIndex = (prevIndex + 1) % activities.length;
-            console.log('Previous Index:', prevIndex);
-            console.log('New Index:', newIndex);
-            return newIndex;
-        });
+        if (currentIndex < activities.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+        } else {
+            console.log("No more activities.");
+        }
+    };
+
+    const handlePrev = () => {
+        if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+        } else {
+            console.log("No previous activities.");
+        }
     };
 
     return (
         <div>
-            {activities.length > 0 && (
-                <PhonemeActivityForm 
-                    activity={activities[currentIndex]}
-                    onNext={handleNext}
-                />
+            {activities.length > 0 ? (
+                <div>
+                    <h1>{activities[currentIndex]?.type}</h1> {/* Safely access `type` */}
+                    <button onClick={handleNext}>Next</button>
+                    <button onClick={handlePrev}>Previous</button>
+                </div>
+            ) : (
+                <p>Loading activities...</p>
             )}
         </div>
     );
