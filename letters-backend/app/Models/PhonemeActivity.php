@@ -29,4 +29,5 @@ class PhonemeActivity extends Model
     {
         return $this->belongsTo(Phoneme::class);
     }
+
 }
