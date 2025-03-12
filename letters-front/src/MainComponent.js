@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import PhonemeActivityForm  from './PhonemeActivityForm ';
 
 const MainComponent = () => {
@@ -6,42 +7,19 @@ const MainComponent = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        const mockData = [
-            {
-                id: 1,
-                phoneme_id: 1,
-                type: 'نوع الهمزة',
-                is_active: true,
-                grammatical_effect: 'التأثير النحوي',
-                examples: 'مثال',
-                phoneme: {
-                    char: 'أ',
-                    symbol: 'Hamza',
-                    type: 'Consonant',
-                    voicing: 'Voiced',
-                    place_manner: 'Glottal',
-                    duration: 100
-                }
-            },
-            {
-                id: 2,
-                phoneme_id: 2,
-                type: 'نوع الهمزة',
-                is_active: false,
-                grammatical_effect: 'التأثير النحوي',
-                examples: 'مثال آخر',
-                phoneme: {
-                    char: 'ب',
-                    symbol: 'Ba',
-                    type: 'Consonant',
-                    voicing: 'Voiced',
-                    place_manner: 'Bilabial',
-                    duration: 120
-                }
+        const fetchActivities = async () => {
+            try {
+                console.log('Fetching Activities...');
+                const response = await axios.get('http://127.0.0.1:8000/api/phoneme-activities');
+                console.log('Activities Fetched:', response.data);
+                setActivities(response.data);
+                console.log('Activities Set:', response.data);
+            } catch (error) {
+                console.error('Error fetching activities:', error);
             }
-        ];
-        setActivities(mockData);
-        console.log('Activities Set:', mockData);
+        };
+
+        fetchActivities();
     }, []);
 
     const handleNext = () => {
@@ -56,7 +34,7 @@ const MainComponent = () => {
     return (
         <div>
             {activities.length > 0 && (
-                <PhonemeActivityForm  
+                <PhonemeActivityForm 
                     activity={activities[currentIndex]}
                     onNext={handleNext}
                 />
