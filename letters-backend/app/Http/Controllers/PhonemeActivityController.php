@@ -30,6 +30,9 @@ class PhonemeActivityController extends Controller
         $nextActivity = PhonemeActivity::where('id', '>', $id)
             ->where('deleted_at', 0)
             ->with('phoneme:char')
+            ->with(['phoneme' => function($query) {
+                $query->select('id', 'char'); 
+            }])
             ->first();
 
         if (!$nextActivity) {
@@ -45,11 +48,14 @@ class PhonemeActivityController extends Controller
             ->where('deleted_at', 0)
             ->orderBy('id', 'desc')
             ->with('phoneme:char')
+            ->with(['phoneme' => function($query) {
+                $query->select('id', 'char'); 
+            }])
             ->first();
 
         if (!$prevActivity) {
             return response()->json(['message' => 'No previous activity found'], 404);
-        }
+        } 
 
         return response()->json($prevActivity);
     }

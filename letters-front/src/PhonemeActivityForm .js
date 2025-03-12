@@ -5,7 +5,7 @@ import './PhonemeActivityForm.css';
 
 const TrashIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5.5 0 0 0 1 0V6z"/>
+    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5.5 0 0 1-1 0V6a.5.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5.5 0 0 0 1 0V6z"/>
     <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
   </svg>
 );
@@ -34,8 +34,17 @@ const PhonemeActivityForm = ({ activity, onNext, onPrev }) => {
 
     const handleNext = async () => {
         try {
-            await axios.put(`/api/phoneme-activity/${formData.id}`, formData);
+            await axios.put(`http://127.0.0.1:8000/api/phoneme-activities/${formData.id}`, formData);
             onNext();
+        } catch (error) {
+            console.error('Error updating activity:', error);
+        }
+    };
+
+    const handlePrev = async () => {
+        try {
+            await axios.put(`http://127.0.0.1:8000/api/phoneme-activities/${formData.id}`, formData);
+            onPrev();
         } catch (error) {
             console.error('Error updating activity:', error);
         }
@@ -57,10 +66,35 @@ const PhonemeActivityForm = ({ activity, onNext, onPrev }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.put(`/api/phoneme-activity/${formData.id}`, { ...formData, is_deleted: 1 });
+                    await axios.delete(`http://127.0.0.1:8000/api/phoneme-activities/${formData.id}`);
                     onNext();
                 } catch (error) {
                     console.error('Error deleting activity:', error);
+                }
+            }
+        });
+    };
+
+    const handleUpdate = () => {
+        Swal.fire({
+            title: 'هل أنت متأكد؟',
+            text: 'هل تريد تحديث هذا السجل؟',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'نعم، حدثه!',
+            cancelButtonText: 'لا، إلغاء',
+            customClass: {
+                confirmButton: 'btn-confirm',
+                cancelButton: 'btn-cancel'
+            },
+            buttonsStyling: false
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.put(`http://127.0.0.1:8000/api/phoneme-activities/${formData.id}`, formData);
+                    console.log('Activity updated:', formData);
+                } catch (error) {
+                    console.error('Error updating activity:', error);
                 }
             }
         });
@@ -119,7 +153,7 @@ const PhonemeActivityForm = ({ activity, onNext, onPrev }) => {
                 <input 
                     name="char" 
                     value={formData.phoneme.char} 
-                    onChange={handleChange} 
+                    readOnly
                     placeholder="Char" 
                     id="char-input"
                 />
@@ -128,6 +162,12 @@ const PhonemeActivityForm = ({ activity, onNext, onPrev }) => {
             <div className="form-button-group">
                 <button type="button" className="btn-next" onClick={handleNext}>
                     التالي
+                </button>
+                <button type="button" className="btn-prev" onClick={handlePrev}>
+                    السابق
+                </button>
+                <button type="button" className="btn-update" onClick={handleUpdate}>
+                    تحديث
                 </button>
                 <button type="button" className="btn-delete" onClick={handleDelete}>
                     <TrashIcon /> حذف
