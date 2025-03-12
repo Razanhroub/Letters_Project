@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('phoneme-activity/{id}', [PhonemeActivityController::class, 'show']);
-Route::get('phoneme-activity/next/{id}', [PhonemeActivityController::class, 'next']);
-Route::get('phoneme-activity/prev/{id}', [PhonemeActivityController::class, 'prev']);
-Route::put('phoneme-activity/{id}', [PhonemeActivityController::class, 'update']);
-// Route::delete('phoneme-activity/{id}', [PhonemeActivityController::class, 'softDelete']);
+
+Route::get('phoneme-activities', [PhonemeActivityController::class, 'index']);
+Route::get('phoneme-activities/next/{id}', [PhonemeActivityController::class, 'next']);
+Route::get('phoneme-activities/prev/{id}', [PhonemeActivityController::class, 'prev']);
+Route::put('phoneme-activities/{id}', [PhonemeActivityController::class, 'update']);
+Route::delete('phoneme-activities/{id}', [PhonemeActivityController::class, 'destroy']);
+Route::put('phoneme-activities/restore/{id}', [PhonemeActivityController::class, 'restore']);
