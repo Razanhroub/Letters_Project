@@ -25,12 +25,10 @@ Route::get('phoneme-activities/next/{id}', [PhonemeActivityController::class, 'n
 Route::get('phoneme-activities/prev/{id}', [PhonemeActivityController::class, 'prev']);
 Route::put('phoneme-activities/{id}', [PhonemeActivityController::class, 'update']);
 Route::delete('phoneme-activities/{id}', [PhonemeActivityController::class, 'destroy']);
-Route::put('phoneme-activities/restore/{id}', [PhonemeActivityController::class, 'restore']);
 
-// Phoneme Characteristics Routes
+// Phoneme Characteristics Routes   
 Route::get('phoneme-characteristics', [PhonemeCharacteristicController::class, 'index']);
-Route::get('phoneme-characteristics/{id}', [PhonemeCharacteristicController::class, 'show']);
-Route::post('phoneme-characteristics', [PhonemeCharacteristicController::class, 'store']);
+Route::get('phoneme-characteristics/next/{id}', [PhonemeCharacteristicController::class, 'next']);
+Route::get('phoneme-characteristics/prev/{id}', [PhonemeCharacteristicController::class, 'prev']);
 Route::put('phoneme-characteristics/{id}', [PhonemeCharacteristicController::class, 'update']);
 Route::delete('phoneme-characteristics/{id}', [PhonemeCharacteristicController::class, 'destroy']);
-Route::put('phoneme-characteristics/restore/{id}', [PhonemeCharacteristicController::class, 'restore']);

@@ -26,4 +26,7 @@ class Phoneme extends Model
     {
         return $this->hasMany(PhonemeActivity::class);
     }
+    public function characteristics(){
+        return $this->hasMany(PhonemeCharacteristic::class);
+    }
 }

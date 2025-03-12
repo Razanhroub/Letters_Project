@@ -11,7 +11,17 @@ class PhonemeCharacteristicController extends Controller
     // Fetch all phoneme characteristics (excluding soft-deleted ones)
     public function index()
     {
-        return PhonemeCharacteristic::where('deleted_at', 0)->get();
+        $activity = PhonemeCharacteristic::where('deleted_at', 0)
+            ->with(['phoneme' => function($query) {
+                $query->select('id', 'char'); 
+            }])
+            ->first();
+            // dd($activity);
+        if (!$activity) {
+            return response()->json(['message' => 'No activity found'], 404);
+        }
+    
+        return response()->json($activity);
     }
 
     public function next($id)

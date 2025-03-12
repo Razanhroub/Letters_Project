@@ -14,7 +14,7 @@ class PhonemeActivityController extends Controller
             $query->select('id', 'char'); 
         }])
         ->first();
-        dd($activity);
+        // dd($activity);
     if (!$activity) {
         return response()->json(['message' => 'No activity found'], 404);
     }
