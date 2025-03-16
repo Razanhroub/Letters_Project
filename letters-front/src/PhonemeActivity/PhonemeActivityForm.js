@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import './PhonemeActivityForm.css';
+import '../main.css';
 
 const PhonemeActivityForm = ({ activity, onNext, onPrev }) => {
     const [formData, setFormData] = useState(activity);

@@ -1,5 +1,5 @@
 import React from 'react';
-import MainComponent from './MainComponent';
+import MainComponent from './PhonemeActivity/MainComponent';
 
 const App = () => {
     return (

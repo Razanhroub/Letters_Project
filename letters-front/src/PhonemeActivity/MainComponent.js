@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PhonemeActivityForm  from './PhonemeActivityForm ';
+import PhonemeActivityForm  from './PhonemeActivityForm';
 
 const MainComponent = () => {
     const [currentActivity, setCurrentActivity] = useState(null);
