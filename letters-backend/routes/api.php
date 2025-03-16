@@ -5,6 +5,7 @@ use App\Http\Controllers\PhonemeCharacteristicController;
 use App\Http\Controllers\PhonemeContextualFeatureController;
 use App\Http\Controllers\PhonemeDeletionController;
 use App\Http\Controllers\PhonemeEmbeddingController;
+use App\Http\Controllers\PhonemeGrammaticalRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PhonemeFunctionController;
@@ -66,4 +67,13 @@ Route::prefix('phoneme-embeddings')->group(function () {
     Route::get('{id}/prev', [PhonemeEmbeddingController::class, 'prev']);
     Route::put('{id}', [PhonemeEmbeddingController::class, 'update']);
     Route::delete('{id}', [PhonemeEmbeddingController::class, 'destroy']);
+});
+
+// Phoneme grammatical Routes
+Route::prefix('phoneme-grammatical-roles')->group(function () {
+    Route::get('/', [PhonemeGrammaticalRoleController::class, 'index']);
+    Route::get('{id}/next', [PhonemeGrammaticalRoleController::class, 'next']);
+    Route::get('{id}/prev', [PhonemeGrammaticalRoleController::class, 'prev']);
+    Route::put('{id}', [PhonemeGrammaticalRoleController::class, 'update']);
+    Route::delete('{id}', [PhonemeGrammaticalRoleController::class, 'destroy']);
 });
