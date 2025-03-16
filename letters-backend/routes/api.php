@@ -4,6 +4,7 @@ use App\Http\Controllers\PhonemeActivityController;
 use App\Http\Controllers\PhonemeCharacteristicController;
 use App\Http\Controllers\PhonemeContextualFeatureController;
 use App\Http\Controllers\PhonemeDeletionController;
+use App\Http\Controllers\PhonemeEmbeddingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PhonemeFunctionController;
@@ -57,3 +58,12 @@ Route::get('phoneme-functions/next/{id}', [PhonemeFunctionController::class, 'ne
 Route::get('phoneme-functions/prev/{id}', [PhonemeFunctionController::class, 'prev']);
 Route::put('phoneme-functions/{id}', [PhonemeFunctionController::class, 'update']);
 Route::delete('phoneme-functions/{id}', [PhonemeFunctionController::class, 'destroy']);
+
+// Phoneme Embeddings Routes
+Route::prefix('phoneme-embeddings')->group(function () {
+    Route::get('/', [PhonemeEmbeddingController::class, 'index']);
+    Route::get('{id}/next', [PhonemeEmbeddingController::class, 'next']);
+    Route::get('{id}/prev', [PhonemeEmbeddingController::class, 'prev']);
+    Route::put('{id}', [PhonemeEmbeddingController::class, 'update']);
+    Route::delete('{id}', [PhonemeEmbeddingController::class, 'destroy']);
+});
