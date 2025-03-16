@@ -31,6 +31,11 @@ class PhonemeContextualFeatureController extends Controller
     {
         $nextFeature = PhonemeContextualFeature::where('id', '>', $id)
                                                 ->where('deleted_at', 0)
+                                                ->with(['phoneme' => function($query) {
+                                                    $query->select('id', 'char');
+                                                }, 'harakat' => function($query) {
+                                                    $query->select('id', 'name'); // Fetch harakat name as well
+                                                }])
                                                 ->first();
 
         if (!$nextFeature) {
@@ -45,6 +50,11 @@ class PhonemeContextualFeatureController extends Controller
     {
         $prevFeature = PhonemeContextualFeature::where('id', '<', $id)
                                                 ->where('deleted_at', 0)
+                                                ->with(['phoneme' => function($query) {
+                                                    $query->select('id', 'char');
+                                                }, 'harakat' => function($query) {
+                                                    $query->select('id', 'name'); // Fetch harakat name as well
+                                                }])
                                                 ->orderBy('id', 'desc')
                                                 ->first();
 

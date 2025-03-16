@@ -28,6 +28,9 @@ class PhonemeCharacteristicController extends Controller
     {
         $nextCharacteristic = PhonemeCharacteristic::where('id', '>', $id)
                                                     ->where('deleted_at', 0)
+                                                    ->with(['phoneme' => function($query) {
+                                                        $query->select('id', 'char'); 
+                                                    }])
                                                     ->first();
 
         if (!$nextCharacteristic) {
@@ -41,6 +44,9 @@ class PhonemeCharacteristicController extends Controller
     {
         $prevCharacteristic = PhonemeCharacteristic::where('id', '<', $id)
                                                     ->where('deleted_at', 0)
+                                                    ->with(['phoneme' => function($query) {
+                                                        $query->select('id', 'char'); 
+                                                    }])
                                                     ->orderBy('id', 'desc')
                                                     ->first();
 
