@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PhonemeActivityController;
 use App\Http\Controllers\PhonemeCharacteristicController;
+use App\Http\Controllers\PhonemeContextualFeatureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,10 @@ Route::put('phoneme-characteristics/{id}', [PhonemeCharacteristicController::cla
 Route::delete('phoneme-characteristics/{id}', [PhonemeCharacteristicController::class, 'destroy']);
 
 // Phoneme PhonemeContextualFeatureController 
+Route::prefix('phoneme-contextuals')->group(function () {
+    Route::get('/', [PhonemeContextualFeatureController::class, 'index']); // Get all active phoneme contextual features
+    Route::get('/next/{id}', [PhonemeContextualFeatureController::class, 'next']); // Get next feature
+    Route::get('/prev/{id}', [PhonemeContextualFeatureController::class, 'prev']); // Get previous feature
+    Route::put('/{id}', [PhonemeContextualFeatureController::class, 'update']); // Update feature
+    Route::delete('/{id}', [PhonemeContextualFeatureController::class, 'destroy']); // Soft delete feature
+});
