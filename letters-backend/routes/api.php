@@ -32,3 +32,5 @@ Route::get('phoneme-characteristics/next/{id}', [PhonemeCharacteristicController
 Route::get('phoneme-characteristics/prev/{id}', [PhonemeCharacteristicController::class, 'prev']);
 Route::put('phoneme-characteristics/{id}', [PhonemeCharacteristicController::class, 'update']);
 Route::delete('phoneme-characteristics/{id}', [PhonemeCharacteristicController::class, 'destroy']);
+
+// Phoneme PhonemeContextualFeatureController 
