@@ -8,6 +8,7 @@ use App\Http\Controllers\PhonemeEmbeddingController;
 use App\Http\Controllers\PhonemeGrammaticalRoleController;
 use App\Http\Controllers\PhonemeMorphemeController;
 use App\Http\Controllers\PhonemeFunctionController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\PhonemeNatureController;
 use App\Http\Controllers\PhonemeOriginController;
 use App\Http\Controllers\PhonemeOverviewController;

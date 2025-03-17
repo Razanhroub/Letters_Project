@@ -103,7 +103,9 @@
     font-weight: 500;
     text-align: right;
 }
-
+.select_drop{
+    height: 65px !important;
+}
 .phoneme-input {
     padding: 0.8rem 1rem;
     border: 2px solid #e2e8f0;
