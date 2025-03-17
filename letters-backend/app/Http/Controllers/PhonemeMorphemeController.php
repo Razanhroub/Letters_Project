@@ -15,5 +15,4 @@ class PhonemeMorphemeController extends BaseController
         ];
 
     }
-  
 }
