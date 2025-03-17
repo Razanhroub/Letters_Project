@@ -10,6 +10,7 @@ use App\Http\Controllers\PhonemeMorphemeController;
 use App\Http\Controllers\PhonemeFunctionController;
 use App\Http\Controllers\PhonemeNatureController;
 use App\Http\Controllers\PhonemeOriginController;
+use App\Http\Controllers\PhonemeOverviewController;
 use Illuminate\Support\Facades\Route;
 
 $controllers = [
@@ -23,6 +24,7 @@ $controllers = [
     'phoneme-morphemes' => PhonemeMorphemeController::class,
     'phoneme-natures'=> PhonemeNatureController::class,
     'phoneme-origins'=> PhonemeOriginController::class,
+    'phoneme-overview'=> PhonemeOverviewController::class,
 ];
 
 foreach ($controllers as $prefix => $controller) {
